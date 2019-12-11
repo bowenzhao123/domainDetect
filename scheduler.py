@@ -2,11 +2,16 @@
 import requests
 from engine import Engine
 
+
+class ResponseData:
+    
+    self.source_url = 
+    self.response = 
+
 class Scheduler:
     def __init__(self,proxies,headers,engine):
         self.proxies = proxies
         self.headers = headers
-        self.engine = engine
 
     def rotate_proxy(self):
         pass
@@ -20,13 +25,14 @@ class Scheduler:
     def send_request(self,url,header):
         try:
             redir_url = requests.get(url,verify=False,headers=header).url
-            req = requests.get(redir_url,verify=False,headers=header)
-            self.engine.get_request((url,req))
+            response = requests.get(redir_url,verify=False,headers=header)
+            return response
         except Exception as e:
-            self.engine.error_pool.put((url,self.format_error(e)))
+            print(self.format_error(e))
+            return
 
-    def get_new_url(self,element,selector):
-        new_url = element.select(selector).get('href')
+    def get_next_page_link(self,element,next_page_element_selector):
+        new_url = element.select(next_page_element_selector).get('href')
         if new_url:
             return new_url
         return

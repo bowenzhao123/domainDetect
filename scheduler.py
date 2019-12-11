@@ -14,7 +14,7 @@ class Scheduler:
     def rotate_header(self):
         pass
     
-    def format_error(self):
+    def format_error(self,e):
         return e
 
     def send_request(self,url,header):
@@ -25,5 +25,8 @@ class Scheduler:
         except Exception as e:
             self.engine.error_pool.put((url,self.format_error(e)))
 
-    def get_next_page(self,element):
-        pass
+    def get_new_url(self,element,selector):
+        new_url = element.select(selector).get('href')
+        if new_url:
+            return new_url
+        return

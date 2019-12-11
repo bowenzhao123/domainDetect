@@ -441,8 +441,7 @@ class Crawlers:
                                 shopUrlLs.add(shopRedirect)
                             except:
                                 continue
-                        currentPageUrl = newdriver.find_element_by_xpath('//footer//a[@class="next-link"]').get_attribute(
-                            'href')
+                        currentPageUrl = newdriver.find_element_by_xpath('//footer//a[@class="next-link"]').get_attribute('href')
                         self._openBrowser(driver, currentPageUrl, timesleep=3)
                     except:
                         break

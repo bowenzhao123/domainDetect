@@ -7,6 +7,8 @@ class BaseDownloader:
     def __init__(self, engine):
         self.engine = engine
 
-    def get_response(self,request):
+    def get_response(self,request,selector=''):
         page = BeautifulSoup(request.content,'html.parser')
-        return page
+        if not selector:
+            return page
+        return page.select(selector)
